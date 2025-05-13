@@ -13,15 +13,15 @@
   },
   "quadrants": [
     {
-      "id": "Languages and Frameworks",
-      "title": "Languages & Frameworks",
+      "id": "Software",
+      "title": "Software",
       "description": "A selection of programming languages, alongside essential frameworks for building a variety of custom software.",
       "color": "#006455"
     },
     {
-      "id": "Techniques",
-      "title": "Methods & Patterns",
-      "description": "Key software development methods and design patterns, covering everything from continuous integration and testing to architecture.",
+      "id": "Lifesciences",
+      "title": "Lifesciences",
+      "description": "Lifesciences.",
       "color": "#017665"
     },
     {
@@ -31,8 +31,8 @@
       "color": "#017665"
     },
     {
-      "id": "Tools",
-      "title": "Tools",
+      "id": "Tooling",
+      "title": "Tooling",
       "description": "A range of software tools, from simple productivity enhancers to comprehensive project solutions, catering to various project needs.",
       "color": "#006455"
     }
