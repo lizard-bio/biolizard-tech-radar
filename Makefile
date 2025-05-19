@@ -23,6 +23,7 @@ build:
 
 # Get
 get:
+# gcloud auth login --enable-gdrive-access
 	@echo "Getting radar data..."
 	@bash bq query --use_legacy_sql=false --format=csv 'SELECT * FROM `diesel-acolyte-418314.google_sheets.data_radar`' > ./data/techradar-data.csv
 	@echo "Data retrieved successfully."

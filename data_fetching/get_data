@@ -1,3 +1,0 @@
-bq query --use_legacy_sql=false --format=csv 'SELECT * FROM `diesel-acolyte-418314.google_sheets.data_radar`' > results.csv
-
-# gcloud auth login --enable-gdrive-access
