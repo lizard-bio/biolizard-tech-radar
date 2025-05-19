@@ -2,13 +2,13 @@ title,ring,quadrant,tags,featured,text
 AWS,adopt,Platforms,"cloud, devops",TRUE,AWS is a widely used cloud platform.
 Azure,adopt,Platforms,"cloud, devops",TRUE,Azure is a cloud platform by Microsoft.
 Best Practices for Software Projects,adopt,,management,TRUE,Best practices for managing software projects.
-BioVerse,assess,Platforms,,TRUE,BioVerse is a tool for bioinformatics research.
-Code Owners for Software Projects,adopt,,"management, collaboration",TRUE,Code owners help manage software projects.
+BioVerse,adopt,Platforms,research,TRUE,BioVerse is a tool for bioinformatics research.
+Code Owners for Software Projects,adopt,,"management, collaboration",FALSE,Code owners help manage software projects.
 ElasticSearch,adopt,Software,database,TRUE,ElasticSearch is a search engine.
 Figma,adopt,Tooling,"design, collaboration",TRUE,Figma is a design and collaboration tool.
-Github Copilot,assess,Software,GenAI,TRUE,Github Copilot is an AI coding assistant.
 Github,adopt,Software,collaboration,TRUE,Github is a version control platform.
-Google Cloud Platforms,adopt,Platforms,"cloud, devops",TRUE,Google Cloud Platform is a cloud service.
+Github Copilot,adopt,Software,GenAI,TRUE,Github Copilot is an AI coding assistant.
+Google Cloud Platform,adopt,Platforms,"cloud, devops",TRUE,Google Cloud Platform is a cloud service.
 Julia,assess,Software,coding,TRUE,Julia is a programming language for data science.
 Kubernetes,adopt,Software,"orchestration, devops",TRUE,Kubernetes is a container orchestration tool.
 Miro,adopt,Tooling,"collaboration, design",TRUE,Miro is a collaboration and design tool.
@@ -20,7 +20,8 @@ Python,adopt,Software,coding,TRUE,Python is a versatile programming language.
 R,adopt,Software,coding,TRUE,R is a programming language for statistics.
 React & React Native,adopt,Software,frontend,TRUE,React and React Native are frontend frameworks.
 Rust,assess,Software,coding,TRUE,Rust is a systems programming language.
-Standardized project templates for Analytical projects,adopt,,,TRUE,Standardized templates for analytics projects.
-Terraform,adopt,Software,devops,TRUE,TerraForm is an infrastructure as code tool.
+Standardized project templates for Analytical projects,adopt,,,FALSE,Standardized templates for analytics projects.
+Terraform,adopt,Software,devops,TRUE,Terraform is an infrastructure as code tool.
 WEB Assembly (Wasm),assess,Software,frontend,TRUE,Wasm is a binary instruction format for the web.
 WebGL,adopt,Software,frontend,TRUE,WebGL is a web graphics library.
+DBT,adopt,Software,infrastructure,TRUE,DBT is a tool to manage data and your data warehouse
