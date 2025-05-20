@@ -14,14 +14,14 @@
   "quadrants": [
     {
       "id": "Software",
-      "title": "Software",
+      "title": "Software Tooling",
       "description": "A selection of programming languages, alongside essential frameworks for building a variety of custom software.",
       "color": "#006455"
     },
     {
-      "id": "Lifesciences",
-      "title": "Lifesciences",
-      "description": "Lifesciences.",
+      "id": "GenAI",
+      "title": "GenAI Tooling",
+      "description": "A selction of tools related to genAI and LLMs.",
       "color": "#017665"
     },
     {
@@ -32,7 +32,7 @@
     },
     {
       "id": "Tooling",
-      "title": "Tooling",
+      "title": "General Tooling",
       "description": "A range of software tools, from simple productivity enhancers to comprehensive project solutions, catering to various project needs.",
       "color": "#006455"
     }
