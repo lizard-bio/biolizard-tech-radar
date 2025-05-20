@@ -12,7 +12,7 @@ PROJECT_ID = diesel-acolyte-418314
 # Google App Engine version
 VERSION = v1
 
-.PHONY: clean build deploy help
+.PHONY: clean build deploy help get
 
 # Build 
 build:
@@ -20,6 +20,13 @@ build:
 	@npm run build:data
 	@npm run build:icons
 	@npm run build
+
+# Get
+get:
+# gcloud auth login --enable-gdrive-access
+	@echo "Getting radar data..."
+	@bash bq query --use_legacy_sql=false --format=csv 'SELECT * FROM `diesel-acolyte-418314.google_sheets.data_radar`' > ./data/techradar-data.csv
+	@echo "Data retrieved successfully."
 
 # Clean the generated files
 clean:
