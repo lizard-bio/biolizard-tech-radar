@@ -44,5 +44,8 @@
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
+  },
+  "dependencies": {
+    "csv-parser": "^3.2.0"
   }
 }

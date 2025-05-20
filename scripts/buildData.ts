@@ -1,3 +1,4 @@
+import csvParser from "csv-parser";
 import fs from "fs";
 import matter from "gray-matter";
 import hljs from "highlight.js";
@@ -52,81 +53,62 @@ function convertToHtml(markdown: string): string {
   return html;
 }
 
-function readMarkdownFile(filePath: string) {
-  const id = path.basename(filePath, ".md");
-  const fileContent = fs.readFileSync(filePath, "utf8");
-
-  try {
-    const { data, content } = matter(fileContent);
-    const body = convertToHtml(content);
-    return { id, data, body };
-  } catch (error) {
-    console.error(`Failed parsing ${filePath}: ${error}`);
-    process.exit(1);
-  }
+function readMarkdownFile(filePath: string): { title: string; body: string } {
+  const content = fs.readFileSync(filePath, "utf-8");
+  const { data, content: body } = matter(content);
+  return {
+    title: data.title || "",
+    body: convertToHtml(body),
+  };
 }
 
-// Function to recursively read Markdown files and parse them
-async function parseDirectory(dirPath: string): Promise<Item[]> {
-  const items: Record<string, Item> = {};
+function readCsvFile(filePath: string): Promise<Item[]> {
+  return new Promise((resolve, reject) => {
+    const items: Item[] = [];
 
-  async function readDir(dirPath: string) {
-    const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+    fs.createReadStream(filePath)
+      .pipe(csvParser())
+      .on("data", (row) => {
+        const id = row.title;
+        const releaseDate = new Date().toISOString().split("T")[0];
+        const body = convertToHtml(row.text || "");
 
-    for (const entry of entries) {
-      const fullPath = path.join(dirPath, entry.name);
-      if (entry.isDirectory()) {
-        await readDir(fullPath);
-      } else if (entry.isFile() && entry.name.endsWith(".md")) {
-        const releaseDate = path.basename(path.dirname(fullPath));
-        const { id, data, body } = readMarkdownFile(fullPath);
-
-        if (!items[id]) {
-          items[id] = {
-            id,
-            release: releaseDate,
-            title: data.title || id,
-            ring: data.ring,
-            quadrant: data.quadrant,
-            body,
-            featured: data.featured !== false,
-            flag: Flag.Default,
-            tags: data.tags || [],
-            revisions: [],
-            position: [0, 0],
-          };
-        } else {
-          items[id].release = releaseDate;
-          items[id].body = body || items[id].body;
-          items[id].title = data.title || items[id].title;
-          items[id].ring = data.ring || items[id].ring;
-          items[id].quadrant = data.quadrant || items[id].quadrant;
-          items[id].tags = data.tags || items[id].tags;
-          items[id].featured =
-            typeof data.featured === "boolean"
-              ? data.featured
-              : items[id].featured;
-        }
-
-        items[id].revisions!.push({
+        const item: Item = {
+          id,
           release: releaseDate,
-          ring: data.ring,
-          body,
-        });
-      }
-    }
-  }
+          title: row.title || id,
+          ring: row.ring,
+          quadrant: row.quadrant,
+          body: body,
+          featured: row.featured !== "false",
+          flag: Flag.Default,
+          tags: row.tags
+            ? row.tags.split(",").map((tag: string) => tag.trim())
+            : [],
+          position: [0, 0],
+        };
 
-  await readDir(dirPath);
-  return Object.values(items).sort((a, b) => a.title.localeCompare(b.title));
+        items.push(item);
+      })
+      .on("end", () => {
+        resolve(items.sort((a, b) => a.id.localeCompare(b.id)));
+      })
+      .on("error", (error) => {
+        console.error(`Failed reading CSV file ${filePath}: ${error}`);
+        reject(error);
+      });
+  });
+}
+
+// Function to parse the CSV file and return items
+async function parseCsvFile(filePath: string): Promise<Item[]> {
+  return await readCsvFile(filePath);
 }
 
 function getUniqueReleases(items: Item[]): string[] {
   const releases = new Set<string>();
   for (const item of items) {
-    for (const revision of item.revisions || []) {
-      releases.add(revision.release);
-    }
+    releases.add(item.release);
   }
   return Array.from(releases).sort();
 }
@@ -148,15 +130,10 @@ function getFlag(item: Item, allReleases: string[]): Flag {
   }
 
   const latestRelease = allReleases[allReleases.length - 1];
-  const revisions = item.revisions || [];
-  const isInLatestRelease =
-    revisions.length > 0 &&
-    revisions[revisions.length - 1].release === latestRelease;
+  const isInLatestRelease = item.release === latestRelease;
 
-  if (revisions.length == 1 && isInLatestRelease) {
+  if (isInLatestRelease) {
     return Flag.New;
-  } else if (revisions.length > 1 && isInLatestRelease) {
-    return Flag.Changed;
   }
 
   return Flag.Default;
@@ -196,37 +173,18 @@ function postProcessItems(items: Item[]): {
   const releases = getUniqueReleases(filteredItems);
   const uniqueTags = getUniqueTags(filteredItems);
   const processedItems = filteredItems.map((item) => {
-    const processedItem = {
+    return {
       ...item,
       position: positioner.getNextPosition(item.quadrant, item.ring),
       flag: getFlag(item, releases),
-      // only keep revision which ring or body is different
-      revisions: item.revisions
-        ?.filter((revision, index, revisions) => {
-          const { ring, body } = revision;
-          return (
-            ring !== item.ring ||
-            (body != "" &&
-              body != item.body &&
-              body !== revisions[index - 1]?.body)
-          );
-        })
-        .reverse(),
     };
-
-    // unset revisions if there are none
-    if (!processedItem.revisions?.length) {
-      delete processedItem.revisions;
-    }
-
-    return processedItem;
   });
 
   return { releases, tags: uniqueTags, items: processedItems };
 }
 
 // Parse the data and write radar data to JSON file
-parseDirectory(dataPath("radar")).then((items) => {
+readCsvFile(dataPath("techradar-data.csv")).then((items) => {
   const data = postProcessItems(items);
   const json = JSON.stringify(data, null, 2);
   fs.writeFileSync(dataPath("data.json"), json);
