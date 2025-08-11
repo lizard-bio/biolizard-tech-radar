@@ -14,7 +14,7 @@ VERSION = v1
 
 .PHONY: clean build deploy help get
 
-# Build 
+# Build
 build:
 	@echo "Building radar..."
 	@npm run build:data
