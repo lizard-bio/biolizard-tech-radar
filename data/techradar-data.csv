@@ -1,11 +1,13 @@
 title,ring,quadrant,tags,featured,text
 AWS,adopt,Platforms,"cloud, devops",true,AWS is a widely used cloud platform.
 Azure,adopt,Platforms,"cloud, devops",true,Azure is a cloud platform by Microsoft.
+Best Practices for Software Projects,adopt,,management,true,Best practices for managing software projects.
 BioVerse,adopt,Platforms,research,true,BioVerse is a tool for bioinformatics research.
+Code Owners for Software Projects,adopt,,"management, collaboration",false,Code owners help manage software projects.
 ElasticSearch,adopt,Software,database,true,ElasticSearch is a search engine.
 Figma,adopt,Tooling,"design, collaboration",true,Figma is a design and collaboration tool.
 Github,adopt,Software,collaboration,true,Github is a version control platform.
-Github Copilot,adopt,GenAI,GenAI,true,Github Copilot is an AI coding assistant.
+Github Copilot,adopt,Software,GenAI,true,Github Copilot is an AI coding assistant.
 Google Cloud Platform,adopt,Platforms,"cloud, devops",true,Google Cloud Platform is a cloud service.
 Julia,assess,Software,coding,true,Julia is a programming language for data science.
 Kubernetes,adopt,Software,"orchestration, devops",true,Kubernetes is a container orchestration tool.
@@ -18,14 +20,8 @@ Python,adopt,Software,coding,true,Python is a versatile programming language.
 R,adopt,Software,coding,true,R is a programming language for statistics.
 React & React Native,adopt,Software,frontend,true,React and React Native are frontend frameworks.
 Rust,assess,Software,coding,true,Rust is a systems programming language.
+Standardized project templates for Analytical projects,adopt,,,false,Standardized templates for analytics projects.
 Terraform,adopt,Software,devops,true,Terraform is an infrastructure as code tool.
 WEB Assembly (Wasm),assess,Software,frontend,true,Wasm is a binary instruction format for the web.
 WebGL,adopt,Software,frontend,true,WebGL is a web graphics library.
 DBT,adopt,Software,infrastructure,true,DBT is a tool to manage data and your data warehouse
-Claude Sonnet,trial,GenAI,"GenAI, chatbot, LLM",true,Claude Sonnet is a AI assistant from Anthropic
-ChatGPT,trial,GenAI,"GenAI, chatbot, LLM",true,ChatGPT is the AI assistant from OpenAI
-DeepSeek,trial,GenAI,"GenAI, chatbot, LLM",true,Deepseek is the opensource AI assistant from DeepSeek
-NotebookLM,adopt,GenAI,"GenAI, LLM",true,"NotebookLM is a highly flexible, point and click RAG like setup using Gemini"
-Gemini,adopt,GenAI,"GenAI, LLM, chatbot",true,Gemini is the AI assisant from Google
-Excalidraw,assess,Tooling,"management, design",true,Excalidraw is an sketching tool
-Le Chat,assess,GenAI,"GenAI, LLM, chatbot",true,Le Chat is the AI assistant from Mistral
